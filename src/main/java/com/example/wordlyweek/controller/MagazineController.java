@@ -26,18 +26,19 @@ public class MagazineController {
 
     @PostMapping("/magazines")
     public Magazine addMagazine(@RequestBody Magazine magazine) {
-        return magazineJpaService.addMagazine(Magazine);
+        return magazineJpaService.addMagazine(magazine);
     }
 
     @PutMapping("/magazines/{magazineId}")
-    public Magazine updateMagazine(@PathVariable("magazineId") int  magazineId, @RequestBody Magazine magazine) {
-        return magazineJpaService.updateMagazine(magazineId,magazine);
+    public Magazine updateMagazine(@PathVariable("magazineId") int magazineId, @RequestBody Magazine magazine) {
+        return magazineJpaService.updateMagazine(magazineId, magazine);
     }
 
     @DeleteMapping("/magazines/{magazineId}")
-    public void deleteMapping(@PathVariable("magazineId") int magazine) {
+    public void deleteMapping(@PathVariable("magazineId") int magazineId) {
         magazineJpaService.deleteMagazine(magazineId);
     }
+
     @GetMapping("/magazines/{magazineId}/writers")
     public List<Writer> getMagazineWriters(@PathVariable("magazineId") int magazineId) {
         return magazineJpaService.getMagazineWriters(magazineId);
