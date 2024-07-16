@@ -66,7 +66,7 @@ public class WriterJpaService implements WriterRepository {
             }
             if (writer.getMagazines() != null) {
                 List<Integer> magazineIds new ArrayList<>();
-            
+            }
                 
                 for (Magazine magazine : writer.getMagazines()) {
                     magazineIds.add(magazine.getMagazineId());
@@ -78,11 +78,12 @@ public class WriterJpaService implements WriterRepository {
                     throw new ResponseStatusException (HttpStatus.BAD_REQUEST);
                 }
                 newWriter.setMagazines(magazines);
-            }
+
             return writerJpaRepository.save(newWriter);
-        }catch(NoSuchELementException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        } catch {
+            (NoSuchELementException e);
+        {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
     @Override
