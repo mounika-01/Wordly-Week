@@ -1,4 +1,4 @@
-package com.example.worldyweek.controller;
+package com.example.wordlyweek.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.worldyweek.model.*;
-import com.example.worldyweek.service.WriterJpaService;
+import com.example.wordlyweek.model.*;
+import com.example.wordlyweek.service.WriterJpaService;
 
 @RestController
 public class WriterController {
@@ -20,7 +20,11 @@ public class WriterController {
         return writerJpaService.getWriters();
     }
 
-    @GetMapping("/magazines/writers/{writerId}")
+    @GetMapping("/writers/{writerId}/magazines")
+    public List<Magazine> getWriterMagazines(@PathVariable("writerId") int writerId) {
+        return writerJpaService.getWriterMagazines(writerId);
+    }
+
     public Writer getWriterbyId(@PathVariable("writerId") int writerId) {
         return writerJpaService.getWriterById(writerId);
     }
@@ -31,11 +35,11 @@ public class WriterController {
     }
 
     @PutMapping("/magazines/writers/{writerid}")
-    public Writer updateWriter(@PathVariable("writerId") int writerId, @requestBody Writer writer) {
+    public Writer updateWriter(@PathVariable("writerId") int writerId, @RequestBody Writer writer) {
         return writerJpaService.updateWriter(writerId, writer);
     }
 
-    @Deletemaping("/magazines/writers/{writerId}")
+    @DeleteMapping("/magazines/writers/{writerId}")
     public void deleteWriter(@PathVariable("writerId") int writerId) {
         writerJpaService.deleteWriter(writerId);
     }
