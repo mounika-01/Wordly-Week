@@ -1,8 +1,9 @@
-package com.example.wordlyWeek.repository;
+package com.example.wordlyweek.repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.wordlyWeek.model.*;
+import com.example.wordlyweek.model.Magazine;
+import com.example.wordlyweek.model.Writer;
 
 public interface MagazineRepository {
     ArrayList<Magazine> getMagazines();
