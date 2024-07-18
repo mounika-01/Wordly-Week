@@ -25,6 +25,7 @@ public class WriterController {
         return writerJpaService.getWriterMagazines(writerId);
     }
 
+    @GetMapping("/writers/{writerId}")
     public Writer getWriterbyId(@PathVariable("writerId") int writerId) {
         return writerJpaService.getWriterById(writerId);
     }
@@ -34,7 +35,7 @@ public class WriterController {
         return writerJpaService.addWriter(writer);
     }
 
-    @PutMapping("/magazines/writers/{writerid}")
+    @PutMapping("/magazines/writers/{writerId}")
     public Writer updateWriter(@PathVariable("writerId") int writerId, @RequestBody Writer writer) {
         return writerJpaService.updateWriter(writerId, writer);
     }
@@ -42,10 +43,5 @@ public class WriterController {
     @DeleteMapping("/magazines/writers/{writerId}")
     public void deleteWriter(@PathVariable("writerId") int writerId) {
         writerJpaService.deleteWriter(writerId);
-    }
-
-    @GetMapping("/writers/{writeId}/magazines")
-    public List<Magazine> getWriteMagazines(@PathVariable("writerId") int writerId) {
-        return writerJpaService.getWriteMagazines(writerId);
     }
 }
