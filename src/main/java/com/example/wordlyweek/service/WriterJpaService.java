@@ -5,12 +5,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
-import com.example.wordlyweek.model.*;
-import com.example.wordlyweek.repository.*;
+import java.util.List;
+import com.example.wordlyweek.model.Writer;
+import com.example.wordlyweek.model.Magazine;
+import com.example.wordlyweek.repository.WriterJpaRepository;
+import com.example.wordlyweek.repository.WriterRepository;
 
 @Service
 public class WriterJpaService implements WriterRepository {
+
     @Autowired
     private WriterJpaRepository writerJpaRepository;
 
@@ -27,7 +30,8 @@ public class WriterJpaService implements WriterRepository {
     @Override
     public Writer getWriterById(int writerId) {
         try {
-            Writer writer = writerJpaRepository.findById(writerId).get();
+            Writer writer = writerJpaRepository.findById(writerId)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
             return writer;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -56,34 +60,34 @@ public class WriterJpaService implements WriterRepository {
     @Override
     public Writer updateWriter(int writerId, Writer writer) {
         try {
-            Writer newwriter = writerJpaRepository.findById(writerId).get();
-            
+            Writer newWriter = writerJpaRepository.findById(writerId)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
             if (writer.getWriterName() != null) {
                 newWriter.setWriterName(writer.getWriterName());
             }
             if (writer.getBio() != null) {
-                newWriter.setBio(writer.getBio()); 
+                newWriter.setBio(writer.getBio());
             }
             if (writer.getMagazines() != null) {
-                List<Integer> magazineIds new ArrayList<>();
-            }
-                
+                List<Integer> magazineIds = new ArrayList<>();
+
                 for (Magazine magazine : writer.getMagazines()) {
                     magazineIds.add(magazine.getMagazineId());
                 }
 
                 List<Magazine> magazines = magazineJpaRepository.findAllById(magazineIds);
-                
+
                 if (magazines.size() != magazineIds.size()) {
-                    throw new ResponseStatusException (HttpStatus.BAD_REQUEST);
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
                 }
                 newWriter.setMagazines(magazines);
+            }
 
             return writerJpaRepository.save(newWriter);
-        } catch {
-            (NoSuchELementException e);
-        {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
@@ -93,13 +97,13 @@ public class WriterJpaService implements WriterRepository {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        throw new ResponseStatusException(HttpStatus.NO_CONTENT);
     }
 
     @Override
     public List<Magazine> getWriterMagazines(int writerId) {
         try {
-            Writer writer = writerJpaRepository.findById(writerId).get();
+            Writer writer = writerJpaRepository.findById(writerId)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
             return writer.getMagazines();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
