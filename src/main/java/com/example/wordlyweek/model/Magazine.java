@@ -55,6 +55,7 @@ public class Magazine {
     public List<Writer> getWriters() {
         return writers;
     }
+
     public void setWriters(List<Writer> writers) {
         this.writers = writers;
     }
