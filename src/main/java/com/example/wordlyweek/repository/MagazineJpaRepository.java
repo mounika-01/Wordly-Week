@@ -15,5 +15,5 @@ import com.example.wordlyweek.model.Magazine;
 
 @Repository
 public interface MagazineJpaRepository extends JpaRepository<Magazine, Integer> {
-    
+
 }
