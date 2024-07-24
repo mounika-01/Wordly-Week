@@ -37,7 +37,7 @@ public class MagazineJpaService implements MagazineRepository {
         List<Integer> writerIds = new ArrayList<>();
 
         for (Writer writer : magazine.getWriters()) {
-            writerIds.add(writer.getwriterId());
+            writerIds.add(writer.getWriterId());
         }
 
         List<Writer> writers = writerJpaRepository.findAllById(writerIds);
@@ -57,7 +57,8 @@ public class MagazineJpaService implements MagazineRepository {
         try {
             Magazine newMagazine = magazineJpaRepository.findById(magazineId).get();
 
-            if (magazine.getMagazine() != null) {
+
+            if (magazine.getMagazineName() != null) { //updated
                 newMagazine.setMagazineName(magazine.getMagazineName());
             }
             if (magazine.getPublicationDate() != null) {
