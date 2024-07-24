@@ -5,11 +5,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import com.example.wordlyweek.model.Writer;
 import com.example.wordlyweek.model.Magazine;
 import com.example.wordlyweek.repository.WriterJpaRepository;
 import com.example.wordlyweek.repository.WriterRepository;
+import com.example.wordlyweek.repository.MagazineJpaRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class WriterJpaService implements WriterRepository {
