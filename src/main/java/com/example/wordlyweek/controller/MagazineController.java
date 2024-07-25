@@ -35,7 +35,7 @@ public class MagazineController {
     }
 
     @DeleteMapping("/magazines/{magazineId}")
-    public void deleteMapping(@PathVariable("magazineId") int magazineId) {
+    public void deleteMagazine(@PathVariable("magazineId") int magazineId) { // updated
         magazineJpaService.deleteMagazine(magazineId);
     }
 
