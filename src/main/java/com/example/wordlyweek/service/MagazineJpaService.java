@@ -57,8 +57,7 @@ public class MagazineJpaService implements MagazineRepository {
         try {
             Magazine newMagazine = magazineJpaRepository.findById(magazineId).get();
 
-
-            if (magazine.getMagazineName() != null) { //updated
+            if (magazine.getMagazineName() != null) { // updated
                 newMagazine.setMagazineName(magazine.getMagazineName());
             }
             if (magazine.getPublicationDate() != null) {
@@ -88,7 +87,8 @@ public class MagazineJpaService implements MagazineRepository {
                 newMagazine.setWriters(newWriters);
 
             }
-            return magazineJpaRepository.save(newMagazine);
+            newMagazine = magazineJpaRepository.save(newMagazine);
+            return newMagazine;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
