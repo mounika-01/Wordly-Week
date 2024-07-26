@@ -25,9 +25,9 @@ public class WriterController {
         return writerJpaService.getWriterById(writerId);
     }
 
-    @GetMapping("/writers/{writerId}")
-    public Writer getWriterbyId(@PathVariable("writerId") int writerId) {
-        return writerJpaService.getWriterById(writerId);
+    @GetMapping("/writers/{writerId}/magazines")
+    public List<Magazine> getWriterMagazines(@PathVariable("writerId") int writerId) {
+        return writerJpaService.getWriterMagazines(writerId);
     }
 
     @PostMapping("/magazines/writers")
