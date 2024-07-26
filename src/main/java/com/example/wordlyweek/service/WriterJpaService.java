@@ -31,11 +31,10 @@ public class WriterJpaService implements WriterRepository {
         return writers;
     }
 
-    @Override
+   @Override
     public Writer getWriterById(int writerId) {
         try {
-            Writer writer = writerJpaRepository.findById(writerId)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            Writer writer = writerJpaRepository.findById(writerId).get();
             return writer;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -64,9 +63,7 @@ public class WriterJpaService implements WriterRepository {
     @Override
     public Writer updateWriter(int writerId, Writer writer) {
         try {
-            Writer newWriter = writerJpaRepository.findById(writerId)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
+            Writer newWriter = writerJpaRepository.findById(writerId).get();
             if (writer.getWriterName() != null) {
                 newWriter.setWriterName(writer.getWriterName());
             }
@@ -75,25 +72,20 @@ public class WriterJpaService implements WriterRepository {
             }
             if (writer.getMagazines() != null) {
                 List<Integer> magazineIds = new ArrayList<>();
-
                 for (Magazine magazine : writer.getMagazines()) {
                     magazineIds.add(magazine.getMagazineId());
                 }
-
                 List<Magazine> magazines = magazineJpaRepository.findAllById(magazineIds);
-
                 if (magazines.size() != magazineIds.size()) {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
                 }
                 newWriter.setMagazines(magazines);
             }
-
             return writerJpaRepository.save(newWriter);
-        } catch (Exception e) {
+        } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
-
     @Override
     public void deleteWriter(int writerId) {
         try {
@@ -107,8 +99,7 @@ public class WriterJpaService implements WriterRepository {
     @Override
     public List<Magazine> getWriterMagazines(int writerId) {
         try {
-            Writer writer = writerJpaRepository.findById(writerId)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            Writer writer = writerJpaRepository.findById(writerId).get();
             return writer.getMagazines();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
